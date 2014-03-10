@@ -21,6 +21,28 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "presentation", ".", "{C69D9
 		VWDPort = "12233"
 	EndProjectSection
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "demo", "http://localhost:13497", "{FBFC9DDA-E35D-4656-A44C-DD1F2CACA9DB}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_13497"
+		Debug.AspNetCompiler.PhysicalPath = "..\demo\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_13497\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_13497"
+		Release.AspNetCompiler.PhysicalPath = "..\demo\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_13497\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "..\demo\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +50,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C69D929B-B9F8-4B83-83B4-4C1DAFC4100C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C69D929B-B9F8-4B83-83B4-4C1DAFC4100C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBFC9DDA-E35D-4656-A44C-DD1F2CACA9DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBFC9DDA-E35D-4656-A44C-DD1F2CACA9DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

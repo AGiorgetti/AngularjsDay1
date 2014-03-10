@@ -49,7 +49,7 @@
                 <br />
                 <br />
                 <br />
-                <small>pick a theme: <a href="?theme=night">night</a> or <a href="?theme=blood">blood</a> or <a href="?theme=sky">sky</a></small>
+                <small>pick a theme: <a href="?theme=night">night</a>, <a href="?theme=blood">blood</a> or <a href="?theme=sky">sky</a></small>
             </section>
             <section>
                 <h2>Alessandro Giorgetti</h2>
@@ -71,10 +71,10 @@
             <section>
                 <h3>Slides e Demo</h3>
                 <br />
-                <span>Live version:&nbsp;</span><a href="#">#</a>
+                <span>Live version:&nbsp;</span><a href="http://agiorgetti.github.io/AngularjsDay1">http://agiorgetti.github.io/AngularjsDay1</a>
                 <br />
                 <br />
-                <span>GitHub:&nbsp;</span><a href="#">#</a>
+                <span>GitHub:&nbsp;</span><a href="https://github.com/AGiorgetti/AngularjsDay1">https://github.com/AGiorgetti/AngularjsDay1</a>
             </section>
             <section>
                 <section>
@@ -95,7 +95,7 @@
             <section>
                 <section>
                     <h2>DI: Dependency Injection</h2>
-                    <p class="fragment">DI is a software design pattern that deals with how you decouple the higher levels of your system from the lower levels by separating them into libraries and using interfaces. This allows you to replace lower level parts of your system without major rework.</p>
+                    <p class="fragment">D.I. is a software design pattern that deals with how you decouple the higher levels of your system from the lower levels by separating them into libraries and using interfaces. This allows you to replace lower level parts of your system without major rework.</p>
                 </section>
                 <section>
                     <h3>Facciamo chiarezza</h3>
@@ -104,11 +104,61 @@
                         <li class="fragment">Rendere modulare l'applicazione.</li>
                         <li class="fragment">Disaccoppiare i diversi componenti dell'applicazione (interfacce / contratti di riferimento).</li>
                         <li class="fragment">Dichiarare le dipendenze di un componente.</li>
-                        <li class="fragment">Quale è la relazione con IoC? Un IoC container (injector in AngularJS) risolve le dipendenze.</li>
+                        <li class="fragment">Quale è la relazione con IoC ? Un IoC container (injector in AngularJS) gestisce e risolve le dipendenze.</li>
                     </ul>
                 </section>
             </section>
-
+            <section>
+                <section>
+                    <h2>D.I. in AngularJS</h2>
+                    <ul>
+                        <li>AngularJS è altamente modulare (e testabile) e si basa sul principio della composizione per arricchire o fornire nuove funzionalità ai componenti.</li>
+                        <li class="fragment">Tutto ciò appare chiaro fin dalla prima definizione di una applicazione Angular, le prime linee di codice sono:</li>
+                    </ul>
+                    <pre class="fragment"><code>angular.module('myApp', [])
+        .controller('shell', function ($scope) {
+            ...
+        });</code></pre>
+                </section>
+                <section>
+                    <h2>Angular.injector</h2>
+                    <ul>
+                        <li class="fragment">L'injector non è altro che un Service Locator.</li>
+                        <!--<li>è responsabile della risoluzione delle dipendenze e della creazione delle istanze degli oggetti.</li>-->
+                        <li class="fragment">Viene creato dall'infrastruttura di Angular.</li>
+                        <li class="fragment">E' possibile (ma sconsigliato dalle best practive) utilizzare direttamente l'injector:</li>
+                    </ul>
+                    <pre class="fragment"><code>var shell = injector.get('shell');</code></pre>
+                </section>
+                <section>
+                    <h3>Configurare le dipendenze - Inferenza</h3>
+                    <p>I nomi dei parametri corrispondono ai nomi delle dipendenze</p>
+                    <pre><code>angular.module('myApp', [])
+        .controller('shell', function ($scope) {
+            ...
+        });</code></pre>
+                    <p>E' problematico se minificate il codice!</p>
+                </section>
+                <section>
+                    <h3>Configurare le dipendenze - $inject Annotation</h3>
+                    <p>per risolvere il problema della minificazione: dichiarare esplicitamente le dipendenze</p>
+                    <pre><code>var shell = function (scope) {
+            ...
+        };
+shell['$inject'] = ['$scope'];
+        
+angular.module('myApp', [])
+    .controller('shell', shell);</code></pre>
+                </section>
+                <section>
+                    <h3>Configurare le dipendenze - Inline Annotaton</h3>
+                    <p>In forma 'meno verbosa':</p>
+                    <pre><code>angular.module('myApp', [])
+        .controller('shell', ['$scope', function ($scope) {
+            ...
+        }]);</code></pre>
+                </section>
+            </section>
 
 
             <section>
