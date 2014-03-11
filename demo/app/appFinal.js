@@ -1,17 +1,20 @@
 ﻿(function () {
     angular.module('myAppFinal', ['myServices'])
         .controller('shell', ['$scope',
-            'appVersion', 'userInfo', 'dataContext', 'dataContextFnc',
-            function ($scope, appVersion, userInfo, dataContext, dataContextFnc) {
+            'appVersion', 'userInfo', 'dataContextFctry', 'dataContextSrvc', 'dataContext',
+            function ($scope, appVersion, userInfo, dataContextFctry, dataContextSrvc, dataContext) {
                 $scope.title = "IoC / DI";
                 $scope.appVersion = appVersion;
                 $scope.userInfo = userInfo;
-                $scope.people = dataContext.people;
+
+                //$scope.todoList = dataContextFctry.todoList;
                 
+                //$scope.todoList = dataContextSrvc.todoList;
+
+                $scope.todoList = dataContext.todoList;
             }])
-        .config(['$provide',
-            function ($provide) {
-                // fase di configurazione dell'applicazione
-                // possiamo registrare altri componenti
+        .config(['dataContextProvider',
+            function (dataContextProvider) {
+                dataContextProvider.setTodoList([{ id: 5, text: 'test 5' }, { id: 6, text: 'test 6' }]);
             }]);
 })();

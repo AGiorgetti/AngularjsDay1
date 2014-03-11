@@ -7,6 +7,22 @@
     <h1>{{title}}</h1>
     <p>ver: {{appVersion.ver}}</p>
     <p>logged user: {{userInfo.username}}</p>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>text</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="itm in todoList">
+                    <td>{{itm.id}}</td>
+                    <td>{{itm.text}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <script src="../Scripts/angular.js"></script>
     <script src="services.js"></script>
     <script src="appFinal.js"></script>
