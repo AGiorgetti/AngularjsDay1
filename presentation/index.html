@@ -159,8 +159,60 @@ angular.module('myApp', [])
         }]);</code></pre>
                 </section>
             </section>
-
-
+            <section>
+                <h3>Ciclo di Vita</h3>
+                <ul>
+                    <li class="fragment">Transient - ogni volta l'injector fornisce una nuova istanza inizializzata.</li>
+                    <li class="fragment">Singleton - l'injector restitusce sempre la stessa istanza (creata la prima volta che viene richiesta).</li> 
+                </ul>
+                <p class="fragment">Il ciclo di vita di un oggetto è determinato dalla funzione che utilizziamo per definirlo:</p>
+                <ul>
+                    <li class="fragment">Transient - controller(), directove(), filter(), etc...</li>
+                    <li class="fragment">Singleton - constant(), value(), factory(), service(), etc...</li> 
+                </ul>
+            </section>
+            <section>
+                <h3>Limitazioni</h3>
+                <p>Il sistema IoC / DI di AngularJS è abbastanza completo, ma non permette di fare 'proprio tutto' quello che siete abituati a fare con altri framweork dedicati</p>
+                <ul>
+                    <li>Il ciclo di vita è 'fissato' dalla dichiarazione e non configurabile altrimenti.</li>
+                    <li>Non c'è una gestione del clashing sulle registrazioni: componeti con lo stesso nome vengono sovrascritti.</li>
+                    <li>Iniettare controller in altri controller.</li>
+                    <li>La maggiore flessibilità si ha nella creazione si servizi (solo singleton però!, aggirabile registrando delle factory functions).</li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h3>Servizi (Singleton) - Definizione</h3>
+                    <ul>
+                        <li>Un <b>Service</b> è una singleton creato da una service factory.</li>
+                        <li>Le <b>Service Factory</b> sono funzioni create da una service provider.</li>
+                        <li>I <b>Service Provider</b> sono degli oggetti che, quando istanziati, devono contenere una proprietà '$get' che ritorna la service factory function.</li>
+                        <li>Per registrare i service provider si utilizza il servizio <b>$provide</b> durante la fase di configurazione.</li>
+                    </ul>
+                    <p>angular.module è dotato di alcuni helper methods che semplificano la registrazione dei service providers.</p>
+                </section>
+                <section>
+                    <h3>.Constant(obj)</h3>
+                    <p>Registra un oggetto (primitive type, object, function) che può essere iniettato in servizi, transienti e service providers (durante la fase di configurazione).</p>
+                    <p>Se dovete fornire valori di configurazione ai service provider: utizzate i .constant().</p>
+                    <br />
+                    <small>This is short for registering a service where its provider's $get property is a factory function that takes no arguments and returns the value service.</small>
+                </section>
+                <section>
+                    <h3>.Value(obj)</h3>
+                    <p>Registra un oggetto (primitive type, object, function) che può essere iniettato in servizi, transienti ma <b>NON</b> dai service providers.</p>
+                    <p>Non possono essere usati durante la fase di configurazione.</p>
+                    <br />
+                    <small>This is short for registering a service where its provider's $get property is a factory function that takes no arguments and returns the value service.</small>
+                </section>
+                <section>
+                    <h3>.service(obj)</h3>
+                    <p>registra una ctor function che sarà invocata utilizzando 'new' per creare l'istanza del servizio.</p>
+                    <br />
+                    <small>This is short for registering a service where its provider's $get property is the service constructor function that will be used to instantiate the service instance.</small>
+                </section>
+            </section>
             <section>
                 <h2>That's it!&nbsp;&nbsp;&nbsp;Q &amp; A time!</h2>
                 <br />
