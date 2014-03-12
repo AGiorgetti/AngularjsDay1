@@ -12,6 +12,14 @@
                 //$scope.todoList = dataContextSrvc.todoList;
 
                 $scope.todoList = dataContext.todoList;
+
+                $scope.failTheHardWay = function() {
+                    failHard();
+                };
+                
+                function failHard() {
+                    throw "we messed things up!";
+                }
             }])
         .config(['dataContextProvider',
             function (dataContextProvider) {

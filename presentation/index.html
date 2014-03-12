@@ -251,6 +251,22 @@ angular.module('myApp', [])
                 </section>
             </section>
             <section>
+                <section>
+                    <h3>.decorator(name, decorator)</h3>
+                    <div style="text-align: left">
+                        <p>Un decorator è un wrapper attorno ad un altro oggetto/servizio e consente di ridefinire o modificare il comportamento del servizio stesso.</p>
+                        <p>Accetta/Consente l'utilizzo di altre dipendenze a servizi, risolti sempre dall'injector.</p>
+                        <p>Prevede la dipendenza sa '$delegate': l'istanza del servizio originale che puo' essere configurata, modificata o a cui è possibile delegare operazioni.</p>
+                        <br />
+                        <small>Demo: aggiungiamo comportamento all' $exceptionHandler service.</small>
+                    </div>
+                </section>
+                <section>
+                    <h2>.interceptors</h2>
+                    <p>Alcuni servizi, come $http, consentono di definire degli intercettori: consentono di introdursi nella normale pipeline di elaborazione delle funzioni ed alterare il comportamento dell'oggetto prima di passare nuovamente il controllo al codice del framework.</p>
+                </section>
+            </section>
+            <section>
                 <h2>That's it!&nbsp;&nbsp;&nbsp;Q &amp; A time!</h2>
                 <br />
                 <br />
