@@ -9,7 +9,11 @@
         // registers a service factory function, fn, that will be wrapped in a service provider object,
         // whose $get property will contain the given factory function.
         .factory('dataContextFctry', ['userInfo', function (userInfo) {
-            // todo: filter out by the user
+            // this is just an example: the istance is singleton, so used in this way: 'the first user to login wins all!'
+            // do something with the authenticated user
+            if (userInfo == null)
+                return null;
+            
             var todoList = [{ id: 1, text: 'test 1' }, { id: 2, text: 'test 2' }];
             return { todoList: todoList };
         }])
@@ -32,7 +36,11 @@
 
             // $get is injectable
             this.$get = ['userInfo', function (userInfo) {
-                // todo: filter out by the user
+                // this is just an example: the istance is singleton, so used in this way: 'the first user to login wins all!'
+                // do something with the authenticated user
+                if (userInfo == null)
+                    return null;
+                
                 if (todoStartupLoist.length == 0)
                     todoStartupLoist = [{ id: 1, text: 'test 1' }, { id: 2, text: 'test 2' }];
                 return { todoList: todoStartupLoist };
@@ -40,7 +48,11 @@
         });
 
     function dataContextService(userInfo) {
-        // todo: filter out by the user
+        // this is just an example: the istance is singleton, so used in this way: 'the first user to login wins all!'
+        // do something with the authenticated user
+        if (userInfo == null)
+            return null;
+        
         var todoList = [{ id: 3, text: 'test 4' }, { id: 4, text: 'test 4' }];
         return { todoList: todoList };
     }

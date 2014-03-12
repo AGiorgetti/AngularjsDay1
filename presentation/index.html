@@ -126,7 +126,7 @@
                         <li class="fragment">L'injector non è altro che un Service Locator.</li>
                         <!--<li>è responsabile della risoluzione delle dipendenze e della creazione delle istanze degli oggetti.</li>-->
                         <li class="fragment">Viene creato dall'infrastruttura di Angular.</li>
-                        <li class="fragment">E' possibile (ma sconsigliato dalle best practive) utilizzare direttamente l'injector:</li>
+                        <li class="fragment">E' possibile (ma sconsigliato dalle best practice) utilizzare direttamente l'injector:</li>
                     </ul>
                     <pre class="fragment"><code>var shell = injector.get('shell');</code></pre>
                 </section>
@@ -163,76 +163,91 @@ angular.module('myApp', [])
                 <h3>Ciclo di Vita</h3>
                 <ul>
                     <li class="fragment">Transient - ogni volta l'injector fornisce una nuova istanza inizializzata.</li>
-                    <li class="fragment">Singleton - l'injector restitusce sempre la stessa istanza (creata la prima volta che viene richiesta).</li> 
+                    <li class="fragment">Singleton - l'injector restitusce sempre la stessa istanza (creata la prima volta che viene richiesta).</li>
                 </ul>
+                <br />
+                <br />
                 <p class="fragment">Il ciclo di vita di un oggetto è determinato dalla funzione che utilizziamo per definirlo:</p>
                 <ul>
-                    <li class="fragment">Transient / Specialized Objects - controller()</li>
-                    <li class="fragment">Singleton / Services - directive(), filter(), constant(), value(), factory(), service(), etc...</li> 
+                    <li class="fragment">Transient / Specialized Objects - .controller()</li>
+                    <li class="fragment">Singleton / Services - .directive(), .filter(), .constant(), .value(), .factory(), .service(), etc...</li>
                 </ul>
             </section>
             <section>
                 <h3>Limitazioni</h3>
-                <p>Il sistema IoC / DI di AngularJS è abbastanza completo, ma non permette di fare 'proprio tutto' quello che siete abituati a fare con altri framweork dedicati</p>
-                <ul>
+                <p>Il sistema IoC / DI di AngularJS è abbastanza completo, ma non permette di fare 'proprio tutto' quello che siete abituati a fare con altri framwork dedicati:</p>
+                <ul class="fragment">
                     <li>Il ciclo di vita è 'fissato' dalla dichiarazione e non configurabile altrimenti.</li>
                     <li>Non c'è una gestione del clashing sulle registrazioni: componeti con lo stesso nome vengono sovrascritti.</li>
-                    <li>Iniettare controller in altri controller.</li>
-                    <li>La maggiore flessibilità si ha nella creazione si servizi (solo singleton però!, aggirabile registrando delle factory functions).</li>
+                    <li>Non si possono iniettare controller in altri controller.</li>
+                    <li>La maggiore flessibilità si ha nella creazione dei servizi (solo singleton però! aggirabile registrando delle factory functions...che ritornano delle construction function).</li>
                 </ul>
             </section>
             <section>
                 <section>
-                    <h3>Servizi (Singleton) - Definizione</h3>
+                    <h3>Servizio - Definizione</h3>
                     <ul>
-                        <li>Un <b>Service</b> è una singleton creato da una service factory.</li>
-                        <li>Le <b>Service Factory</b> sono funzioni create da una service provider.</li>
-                        <li>I <b>Service Provider</b> sono degli oggetti che, quando istanziati, devono contenere una proprietà '$get' che ritorna la service factory function.</li>
-                        <li>Per registrare i service provider si utilizza il servizio <b>$provide</b> durante la fase di configurazione.</li>
+                        <li class="fragment">Un <b>Service</b> è una singleton creato da una service factory.</li>
+                        <li class="fragment">Le <b>Service Factory</b> sono funzioni create da una service provider.</li>
+                        <li class="fragment">I <b>Service Provider</b> sono degli oggetti che, quando istanziati, devono contenere una proprietà '$get' che ritorna la service factory function.</li>
+                        <li class="fragment">Per registrare i service provider si utilizza il servizio <b>$provide</b> durante la fase di configurazione.</li>
                     </ul>
-                    <p>angular.module è dotato di alcuni helper methods che semplificano la registrazione dei service providers.</p>
+                    <br />
+                    <br />
+                    <p class="fragment">angular.module è dotato di alcuni helper methods che semplificano la registrazione dei service providers.</p>
                 </section>
                 <section>
                     <h3>.Constant(name, obj)</h3>
-                    <p>Registra un oggetto (primitive type, object, function) che può essere iniettato in servizi, oggeti e service providers (durante la fase di configurazione).</p>
-                    <p>Se dovete fornire valori di configurazione ai service provider: utizzate i .constant().</p>
-                    <br />
-                    <small>This is short for registering a service where its provider's $get property is a factory function that takes no arguments and returns the value service.</small>
+                    <div style="text-align: left">
+                        <p>Registra un oggetto (primitive type, object, function) che può essere iniettato in servizi, oggetti e service providers (durante la fase di configurazione).</p>
+                        <p>Se dovete fornire valori di configurazione ai service provider: utizzate .constant().</p>
+                        <br />
+                        <small>This is short for registering a service where its provider's $get property is a factory function that takes no arguments and returns the value service.</small>
+                    </div>
                 </section>
                 <section>
                     <h3>.Value(name, obj)</h3>
-                    <p>Registra un oggetto (primitive type, object, function) che può essere iniettato in servizi, oggetti ma <b>NON</b> dai service providers.</p>
-                    <p>Non possono essere usati durante la fase di configurazione.</p>
-                    <br />
-                    <small>This is short for registering a service where its provider's $get property is a factory function that takes no arguments and returns the value service.</small>
+                    <div style="text-align: left">
+                        <p>Registra un oggetto (primitive type, object, function) che può essere iniettato in servizi, oggetti ma <b>NON</b> nei service providers.</p>
+                        <p>Gli oggetti registarti con .value() non possono essere usati durante la fase di configurazione.</p>
+                        <br />
+                        <small>This is short for registering a service where its provider's $get property is a factory function that takes no arguments and returns the value service.</small>
+                    </div>
                 </section>
                 <section>
                     <h3>.factory(name, fn)</h3>
-                    <p>Registra una service factory function che sarà chiamata per creare l'istanza del servizio.</p>
-                    <p>Consente l'utilizzo di altre dipendenze a servizi, risolti sempre dall'injector.</p>
-                    <p>L'istanza del servizio creato dalla factory function è singleton.</p>
-                    <p>Una .factory() puo' ritornare una istanza di qualsiasi tipo: primitive type, object, function...</p>
-                    <br />
-                    <small>This is short for registering a service where its provider consists of only a $get property, which is the given service factory function.</small>
+                    <div style="text-align: left">
+                        <p>Registra una <b>service factory function</b> che sarà chiamata per creare l'istanza del servizio.</p>
+                        <p>Accetta/Consente l'utilizzo di altre dipendenze a servizi, risolti sempre dall'injector.</p>
+                        <p>L'istanza del servizio creato dalla factory function (lazy initialization) è singleton.</p>
+                        <p>Una .factory() puo' ritornare una istanza di qualsiasi tipo: <b>primitive type, object, function</b>.</p>
+                        <br />
+                        <small>This is short for registering a service where its provider consists of only a $get property, which is the given service factory function.</small>
+                    </div>
                 </section>
                 <section>
                     <h3>.service(name, class)</h3>
-                    <p>Registra una ctor function che sarà invocata utilizzando 'new' per creare l'istanza del servizio.</p>
-                    <p>Consente l'utilizzo di altre dipendenze a servizi, risolti sempre dall'injector.</p>
-                    <p>L'istanza del servizio creato dalla factory function è singleton.</p>
-                    <p>Un .service() puo' ritornare una istanza di tipo: object, custom types.</p>
-                    <br />
-                    <small>This is short for registering a service where its provider's $get property is the service constructor function that will be used to instantiate the service instance.</small>
+                    <div style="text-align: left">
+                        <p>Registra una <b>ctor function</b> che sarà invocata utilizzando 'new' per creare l'istanza del servizio.</p>
+                        <p>Accetta/Consente l'utilizzo di altre dipendenze a servizi, risolti sempre dall'injector.</p>
+                        <p>L'istanza del servizio creato dalla ctor function (lazy initialization) è singleton.</p>
+                        <p>Un .service() puo' ritornare una istanza di tipo: <b>object (custom types)</b>.</p>
+                        <br />
+                        <small>This is short for registering a service where its provider's $get property is the service constructor function that will be used to instantiate the service instance.</small>
+                    </div>
                 </section>
                 <section>
                     <h3>.provider(name, provider)</h3>
-                    <p>Registra un <b>Service Provider</b> (un oggetto che implementa la $get function).</p>
-                    <p>Il nome deve iniziare col nome del servizio seguito dalla parola 'Provider' (ex: $log service --> $logProvider).</p>
-                    <p>Puo' esporre ulteriori API per configurare il servizio prima che la sua istanza venga creata (ex: $logProvider.debugEnabled(false)).</p>
+                    <div style="text-align: left">
+                        <p>Registra un <b>Service Provider</b> (un oggetto che implementa la '$get' function).</p>
+                        <p>Tutto quanto visto sopra è syntactic sugar sopra .provider().</p>
+                        <p>Il nome deve iniziare col nome del servizio seguito dalla parola 'Provider' (ex: $log service --> $logProvider).</p>
+                        <p>Puo' esporre ulteriori API per configurare il servizio prima che la sua istanza venga creata (ex: $logProvider.debugEnabled(false)).</p>
+                    </div>
                 </section>
                 <section>
                     <h3>What about: directive, filter, animation...</h3>
-                    <p>Tutti gli oggetti, ad eccezione dei Controller, sono definiti dietro le quinte usando la funzione .factory().</p>
+                    <p>Tutti gli oggetti, ad eccezione dei <b>controller</b>, sono definiti dietro le quinte usando la funzione .factory().</p>
                 </section>
             </section>
             <section>
