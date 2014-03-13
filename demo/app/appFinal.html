@@ -7,35 +7,16 @@
     <h1>{{title}}</h1>
     <p>ver: {{appVersion.ver}}</p>
     <p>logged user: {{userInfo.username}}</p>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>text</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="itm in todoList">
-                    <td>{{itm.id}}</td>
-                    <td>{{itm.text}}</td>
-                </tr>
-            </tbody>
-        </table>
-        <fieldset>
-            <legend>New Todo</legend>
-            id:
-            <input type="text" data-ng-model="todoId" />
-            text:
-            <input type="text" data-ng-model="todoText" />
-            <button data-ng-click="addnew(todoId, todoText)">Add New</button>
-        </fieldset>
-        <button data-ng-click="failTheHardWay()">Fail Hard!</button>
-    </div>
+    <button data-ng-click="failTheHardWay()">Fail Hard!</button>
+    
+    <div data-ng-include="'todoListView.html'"></div>
+
     <script src="../Scripts/stacktrace.js"></script>
     <script src="../Scripts/angular.js"></script>
     <script src="services.js"></script>
     <script src="appFinal.js"></script>
     <script src="exceptionHandler.js"></script>
+    <script src="todoListCtrl.js"></script>
+    <!--<script src="browserCacheInterceptor.js"></script>-->
 </body>
 </html>

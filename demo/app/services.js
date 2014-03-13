@@ -50,7 +50,7 @@
                     return null;
 
                 if (todoList.length == 0)
-                    todoList = [{ id: 1, text: 'test 1' }, { id: 2, text: 'test 2' }];
+                    todoList = [{ id: 1, text: 'not' }, { id: 2, text: 'initialized' }];
 
                 function addTodo(id, text) {
                     todoList.unshift({ id: id, text: text });

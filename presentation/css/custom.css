@@ -1,0 +1,11 @@
+﻿.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6
+{
+    margin-bottom: 60px;
+    text-transform: none;
+    font-weight: bold;
+}

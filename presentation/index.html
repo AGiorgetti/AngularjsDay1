@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="css/reveal.min.css">
     <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+    <link href="css/custom.css" rel="stylesheet" />
 
     <!-- For syntax highlighting -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -131,7 +132,7 @@
                     <pre class="fragment"><code>var shell = injector.get('shell');</code></pre>
                 </section>
                 <section>
-                    <h3>Configurare le dipendenze - Inferenza</h3>
+                    <h3>Configurazione - Inferenza</h3>
                     <p>I nomi dei parametri corrispondono ai nomi delle dipendenze</p>
                     <pre><code>angular.module('myApp', [])
         .controller('shell', function ($scope) {
@@ -140,7 +141,7 @@
                     <p>E' problematico se minificate il codice!</p>
                 </section>
                 <section>
-                    <h3>Configurare le dipendenze - $inject Annotation</h3>
+                    <h3>Configurazione - $inject Annotation</h3>
                     <p>per risolvere il problema della minificazione: dichiarare esplicitamente le dipendenze</p>
                     <pre><code>var shell = function (scope) {
             ...
@@ -151,7 +152,7 @@ angular.module('myApp', [])
     .controller('shell', shell);</code></pre>
                 </section>
                 <section>
-                    <h3>Configurare le dipendenze - Inline Annotaton</h3>
+                    <h3>Configurazione - Inline Annotaton</h3>
                     <p>In forma 'meno verbosa':</p>
                     <pre><code>angular.module('myApp', [])
         .controller('shell', ['$scope', function ($scope) {
@@ -162,8 +163,8 @@ angular.module('myApp', [])
             <section>
                 <h3>Ciclo di Vita</h3>
                 <ul>
-                    <li class="fragment">Transient - ogni volta l'injector fornisce una nuova istanza inizializzata.</li>
-                    <li class="fragment">Singleton - l'injector restitusce sempre la stessa istanza (creata la prima volta che viene richiesta).</li>
+                    <li class="fragment"><b>Transient</b> - ogni volta l'injector fornisce una nuova istanza inizializzata.</li>
+                    <li class="fragment"><b>Singleton</b> - l'injector restitusce sempre la stessa istanza (creata la prima volta che viene richiesta).</li>
                 </ul>
                 <br />
                 <br />
@@ -256,14 +257,14 @@ angular.module('myApp', [])
                     <div style="text-align: left">
                         <p>Un decorator è un wrapper attorno ad un altro oggetto/servizio e consente di ridefinire o modificare il comportamento del servizio stesso.</p>
                         <p>Accetta/Consente l'utilizzo di altre dipendenze a servizi, risolti sempre dall'injector.</p>
-                        <p>Prevede la dipendenza sa '$delegate': l'istanza del servizio originale che puo' essere configurata, modificata o a cui è possibile delegare operazioni.</p>
+                        <p>Prevede la dipendenza da '$delegate': l'istanza del servizio originale che puo' essere configurata, modificata o a cui è possibile delegare operazioni.</p>
                         <br />
                         <small>Demo: aggiungiamo comportamento all' $exceptionHandler service.</small>
                     </div>
                 </section>
                 <section>
                     <h2>.interceptors</h2>
-                    <p>Alcuni servizi, come $http, consentono di definire degli intercettori: consentono di introdursi nella normale pipeline di elaborazione delle funzioni ed alterare il comportamento dell'oggetto prima di passare nuovamente il controllo al codice del framework.</p>
+                    <p>Alcuni servizi, come $http, consentono di definire degli intercettori: permettono di introdursi nella normale pipeline di elaborazione delle funzioni ed alterare il comportamento dell'oggetto prima di passare nuovamente il controllo al codice del framework.</p>
                 </section>
             </section>
             <section>
