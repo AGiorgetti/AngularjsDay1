@@ -9,3 +9,8 @@
     text-transform: none;
     font-weight: bold;
 }
+
+.reveal li,
+.reveal p {
+    margin-bottom: 20px;
+}

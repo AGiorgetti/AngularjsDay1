@@ -83,8 +83,7 @@
                     <p class="fragment">Inversion of control is a style of software construction in which object coupling is bound at run time by an assembler object and is typically not known at compile time using static analysis; the objects involved must possess compatible abstractions (interfaces, contracts).</p>
                 </section>
                 <section>
-                    <h3>Facciamo chiarezza</h3>
-                    <p>A cosa serve IoC ?</p>
+                    <h3>A cosa serve IoC ?</h3>
                     <ul>
                         <li class="fragment">Costruire e comporre oggetti.</li>
                         <li class="fragment">Delegare la creazione degli oggetti ad una autorità terza (nessun NEW esplicito).</li>
@@ -99,8 +98,7 @@
                     <p class="fragment">D.I. is a software design pattern that deals with how you decouple the higher levels of your system from the lower levels by separating them into libraries and using interfaces. This allows you to replace lower level parts of your system without major rework.</p>
                 </section>
                 <section>
-                    <h3>Facciamo chiarezza</h3>
-                    <p>A cosa serve DI ?</p>
+                    <h3>A cosa serve DI ?</h3>
                     <ul>
                         <li class="fragment">Rendere modulare l'applicazione.</li>
                         <li class="fragment">Disaccoppiare i diversi componenti dell'applicazione (interfacce / contratti di riferimento).</li>
@@ -129,7 +127,7 @@
                         <li class="fragment">Viene creato dall'infrastruttura di Angular.</li>
                         <li class="fragment">E' possibile (ma sconsigliato dalle best practice) utilizzare direttamente l'injector:</li>
                     </ul>
-                    <pre class="fragment"><code>var shell = injector.get('shell');</code></pre>
+                    <pre class="fragment"><code>var shell = $injector.get('shell');</code></pre>
                 </section>
                 <section>
                     <h3>Configurazione - Inferenza</h3>
@@ -188,7 +186,7 @@ angular.module('myApp', [])
                 <section>
                     <h3>Servizio - Definizione</h3>
                     <ul>
-                        <li class="fragment">Un <b>Service</b> è una singleton creato da una service factory.</li>
+                        <li class="fragment">Un <b>Service</b> è un singleton creato da una service factory.</li>
                         <li class="fragment">Le <b>Service Factory</b> sono funzioni create da una service provider.</li>
                         <li class="fragment">I <b>Service Provider</b> sono degli oggetti che, quando istanziati, devono contenere una proprietà '$get' che ritorna la service factory function.</li>
                         <li class="fragment">Per registrare i service provider si utilizza il servizio <b>$provide</b> durante la fase di configurazione.</li>
@@ -198,7 +196,7 @@ angular.module('myApp', [])
                     <p class="fragment">angular.module è dotato di alcuni helper methods che semplificano la registrazione dei service providers.</p>
                 </section>
                 <section>
-                    <h3>.Constant(name, obj)</h3>
+                    <h3>.constant(name, obj)</h3>
                     <div style="text-align: left">
                         <p>Registra un oggetto (primitive type, object, function) che può essere iniettato in servizi, oggetti e service providers (durante la fase di configurazione).</p>
                         <p>Se dovete fornire valori di configurazione ai service provider: utizzate .constant().</p>
@@ -207,7 +205,7 @@ angular.module('myApp', [])
                     </div>
                 </section>
                 <section>
-                    <h3>.Value(name, obj)</h3>
+                    <h3>.value(name, obj)</h3>
                     <div style="text-align: left">
                         <p>Registra un oggetto (primitive type, object, function) che può essere iniettato in servizi, oggetti ma <b>NON</b> nei service providers.</p>
                         <p>Gli oggetti registarti con .value() non possono essere usati durante la fase di configurazione.</p>
@@ -255,7 +253,7 @@ angular.module('myApp', [])
                 <section>
                     <h3>.decorator(name, decorator)</h3>
                     <div style="text-align: left">
-                        <p>Un decorator è un wrapper attorno ad un altro oggetto/servizio e consente di ridefinire o modificare il comportamento del servizio stesso.</p>
+                        <p>Un decorator è un wrapper attorno ad un altro oggetto/servizio, consente di ridefinire o modificare il comportamento del servizio stesso.</p>
                         <p>Accetta/Consente l'utilizzo di altre dipendenze a servizi, risolti sempre dall'injector.</p>
                         <p>Prevede la dipendenza da '$delegate': l'istanza del servizio originale che puo' essere configurata, modificata o a cui è possibile delegare operazioni.</p>
                         <br />
@@ -263,9 +261,21 @@ angular.module('myApp', [])
                     </div>
                 </section>
                 <section>
-                    <h2>.interceptors</h2>
+                    <h2>interceptors</h2>
                     <p>Alcuni servizi, come $http, consentono di definire degli intercettori: permettono di introdursi nella normale pipeline di elaborazione delle funzioni ed alterare il comportamento dell'oggetto prima di passare nuovamente il controllo al codice del framework.</p>
+                    <br />
+                    <small>Demo: $http service and 'request' interceptors.</small>
                 </section>
+            </section>
+            <section>
+                <h3>Mocking & Unit Testing</h3>
+                <ul>
+                    <li class="fragment">E' possibile sostituire le varie imlementazioni dei servizi al fine di semplificare la realizzazione di test unitari.</li>
+                    <li class="fragment">E' sufficiente includere i propri file di definizione dei mock dei servizi dopo quelli specifici di AngularJS, le registrazioni dei componenti vengono sovrascritte.</li>
+                    <li class="fragment">Angular fornisce <a href="http://docs.angularjs.org/api/ngMock">ngMock</a>: modulo per il mocking di alcuni servizi core.</li>
+                    <li class="fragment">Andatevi a vedere la <a href="http://docs.angularjs.org/guide/unit-testing">guida</a>...</li>
+                    <li class="fragment">... o la <a href="http://vimeo.com/86816782">sessione dedicata al testing</a> alla scorsa AngularJS Dev Conf.</li>
+                </ul>
             </section>
             <section>
                 <h2>That's it!&nbsp;&nbsp;&nbsp;Q &amp; A time!</h2>
