@@ -7,19 +7,19 @@
                 $scope.appVersion = appVersion;
                 $scope.userInfo = userInfo;
 
-                //$scope.todoList = dataContextFctry.todoList;
-                
-                //$scope.todoList = dataContextSrvc.todoList;
+                //var dataCtx = dataContextFctry;
+                //var dataCtx = dataContextSrvc;
+                var dataCtx = dataContext;
 
-                $scope.todoList = dataContext.todoList;
+                $scope.todoList = dataCtx.todoList;
 
-                $scope.failTheHardWay = function() {
-                    failHard();
+                $scope.addnew = function (id, text) {
+                    dataCtx.addTodo(id, text);
                 };
-                
-                function failHard() {
-                    throw "we messed things up!";
-                }
+
+                $scope.failTheHardWay = function () {
+                    throw new Error("Something went really wrong!");
+                };
             }])
         .config(['dataContextProvider',
             function (dataContextProvider) {

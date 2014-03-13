@@ -13,9 +13,17 @@
             // do something with the authenticated user
             if (userInfo == null)
                 return null;
-            
+
             var todoList = [{ id: 1, text: 'test 1' }, { id: 2, text: 'test 2' }];
-            return { todoList: todoList };
+
+            function addTodo(id, text) {
+                todoList.unshift({ id: id, text: text });
+            }
+
+            return {
+                todoList: todoList,
+                addTodo: addTodo
+            };
         }])
 
         // registers a constructor function, class, that will be wrapped in a service provider object,
@@ -28,10 +36,10 @@
 
         // Register a provider function
         .provider('dataContext', function () {
-            var todoStartupLoist = [];
+            var todoList = [];
 
             this.setTodoList = function (list) {
-                todoStartupLoist = list;
+                todoList = list;
             };
 
             // $get is injectable
@@ -40,20 +48,36 @@
                 // do something with the authenticated user
                 if (userInfo == null)
                     return null;
-                
-                if (todoStartupLoist.length == 0)
-                    todoStartupLoist = [{ id: 1, text: 'test 1' }, { id: 2, text: 'test 2' }];
-                return { todoList: todoStartupLoist };
+
+                if (todoList.length == 0)
+                    todoList = [{ id: 1, text: 'test 1' }, { id: 2, text: 'test 2' }];
+
+                function addTodo(id, text) {
+                    todoList.unshift({ id: id, text: text });
+                }
+
+                return {
+                    todoList: todoList,
+                    addTodo: addTodo
+                };
             }];
         });
 
+    // this one will be instantiated using 'new'
     function dataContextService(userInfo) {
+        var self = this;
+
         // this is just an example: the istance is singleton, so used in this way: 'the first user to login wins all!'
         // do something with the authenticated user
         if (userInfo == null)
             return null;
-        
-        var todoList = [{ id: 3, text: 'test 4' }, { id: 4, text: 'test 4' }];
-        return { todoList: todoList };
+
+        // public methods ... or you can extend the protorype.
+        this.addTodo = function (id, text) {
+            self.todoList.unshift({ id: id, text: text });
+        };
+
+        this.todoList = [{ id: 3, text: 'test 4' }, { id: 4, text: 'test 4' }];
     }
+
 })();

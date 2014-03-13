@@ -22,6 +22,14 @@
                 </tr>
             </tbody>
         </table>
+        <fieldset>
+            <legend>New Todo</legend>
+            id:
+            <input type="text" data-ng-model="todoId" />
+            text:
+            <input type="text" data-ng-model="todoText" />
+            <button data-ng-click="addnew(todoId, todoText)">Add New</button>
+        </fieldset>
         <button data-ng-click="failTheHardWay()">Fail Hard!</button>
     </div>
     <script src="../Scripts/stacktrace.js"></script>

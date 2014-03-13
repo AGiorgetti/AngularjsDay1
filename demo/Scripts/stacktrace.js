@@ -36,13 +36,11 @@
 
     printStackTrace.implementation.prototype = {
         /**
-         * @param {Error} ex The error to create a stacktrace from (optional)
-         * @param {String} mode Forced mode (optional, mostly for unit tests)
+         * @param {Error} [ex] The error to create a stacktrace from (optional)
+         * @param {String} [mode] Forced mode (optional, mostly for unit tests)
          */
         run: function (ex, mode) {
             ex = ex || this.createException();
-            // examine exception properties w/o debugger
-            //for (var prop in ex) {alert("Ex['" + prop + "']=" + ex[prop]);}
             mode = mode || this.mode(ex);
             if (mode === 'other') {
                 return this.other(arguments.callee);
@@ -68,13 +66,21 @@
         mode: function (e) {
             if (e['arguments'] && e.stack) {
                 return 'chrome';
-            } else if (e.stack && e.sourceURL) {
+            }
+
+            if (e.stack && e.sourceURL) {
                 return 'safari';
-            } else if (e.stack && e.number) {
+            }
+
+            if (e.stack && e.number) {
                 return 'ie';
-            } else if (e.stack && e.fileName) {
+            }
+
+            if (e.stack && e.fileName) {
                 return 'firefox';
-            } else if (e.message && e['opera#sourceloc']) {
+            }
+
+            if (e.message && e['opera#sourceloc']) {
                 // e.message.indexOf("Backtrace:") > -1 -> opera9
                 // 'opera#sourceloc' in e -> opera9, opera10a
                 // !e.stacktrace -> opera9
@@ -86,18 +92,23 @@
                     return 'opera9'; // use e.message
                 }
                 return 'opera10a'; // use e.stacktrace
-            } else if (e.message && e.stack && e.stacktrace) {
+            }
+
+            if (e.message && e.stack && e.stacktrace) {
                 // e.stacktrace && e.stack -> opera10b
                 if (e.stacktrace.indexOf("called from line") < 0) {
                     return 'opera10b'; // use e.stacktrace, format differs from 'opera10a'
                 }
                 // e.stacktrace && e.stack -> opera11
                 return 'opera11'; // use e.stacktrace, format differs from 'opera10a', 'opera10b'
-            } else if (e.stack && !e.fileName) {
+            }
+
+            if (e.stack && !e.fileName) {
                 // Chrome 27 does not have e.arguments as earlier versions,
                 // but still does not have e.fileName as Firefox
                 return 'chrome';
             }
+
             return 'other';
         },
 
@@ -270,11 +281,17 @@
         // Safari 5-, IE 9-, and others
         other: function (curr) {
             var ANON = '{anonymous}', fnRE = /function\s*([\w\-$]+)?\s*\(/i, stack = [], fn, args, maxStackSize = 10;
+            var slice = Array.prototype.slice;
             while (curr && curr['arguments'] && stack.length < maxStackSize) {
                 fn = fnRE.test(curr.toString()) ? RegExp.$1 || ANON : ANON;
-                args = Array.prototype.slice.call(curr['arguments'] || []);
+                args = slice.call(curr['arguments'] || []);
                 stack[stack.length] = fn + '(' + this.stringifyArguments(args) + ')';
-                curr = curr.caller;
+                try {
+                    curr = curr.caller;
+                } catch (e) {
+                    stack[stack.length] = '' + e;
+                    break;
+                }
             }
             return stack;
         },
@@ -295,6 +312,7 @@
                 } else if (arg === null) {
                     result[i] = 'null';
                 } else if (arg.constructor) {
+                    // TODO constructor comparison does not work for iframes
                     if (arg.constructor === Array) {
                         if (arg.length < 3) {
                             result[i] = '[' + this.stringifyArguments(arg) + ']';
@@ -309,6 +327,8 @@
                         result[i] = '"' + arg + '"';
                     } else if (arg.constructor === Number) {
                         result[i] = arg;
+                    } else {
+                        result[i] = '?';
                     }
                 }
             }

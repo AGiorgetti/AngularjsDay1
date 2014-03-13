@@ -15,17 +15,16 @@
                     try {
 
                         // enrich the error with some extended information (app version, stacktrace and so on);
-                        //var p = printStackTrace({ e: exception });
                         var err = {
                             msg: exception.toString(),
-                            stack: printStackTrace({ e: exception }).join('\n'),
+                            stack: printStackTrace({ e: exception }).join('\n\n'),
                             cause: cause || '',
                             ver: appVersion.ver
                         };
 
                         // todo: use a service to log the error server side
-                        // in this demo just reprint to the console the extended infos
-                        $delegate(err, cause);
+                        // in this demo we just reprint to the console the extended infos
+                        console.log("Extended Error Info:", err);
 
                     } catch (loggingError) {
 
