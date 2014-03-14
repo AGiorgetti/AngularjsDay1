@@ -5,18 +5,18 @@
 </head>
 <body>
     <h1>{{title}}</h1>
-    <p>ver: {{appVersion.ver}}</p>
-    <p>logged user: {{userInfo.username}}</p>
+    <span>ver: {{appVersion.ver}} logged user: {{userInfo.username}}</span>
+   
+    <div data-ng-include="'todoListView.html'"></div>
+    
     <button data-ng-click="failTheHardWay()">Fail Hard!</button>
     
-    <div data-ng-include="'todoListView.html'"></div>
-
     <script src="../Scripts/stacktrace.js"></script>
     <script src="../Scripts/angular.js"></script>
     <script src="services.js"></script>
+    <script src="todoListCtrl.js"></script>
     <script src="appFinal.js"></script>
     <script src="exceptionHandler.js"></script>
-    <script src="todoListCtrl.js"></script>
     <script src="browserCacheInterceptor.js"></script>
 </body>
 </html>

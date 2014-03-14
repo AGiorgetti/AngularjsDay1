@@ -1,12 +1,12 @@
 ﻿angular.module('myAppFinal')
-    .config(['$provide', '$httpProvider', 'appVersion', function ($provide, $httpProvider, appVersion) {
+    .config(['$provide', '$httpProvider', function ($provide, $httpProvider) {
 
         // register a new interceptor that will
         // defeat the browser cache appending a version number to each template request
-        $provide.factory('defeatTheCacheInterceptor', function() {
+        $provide.factory('defeatTheCacheInterceptor', ['appVersion', function (appVersion) {
             return {
                 // see the $http service for more informations
-                'request': function(config) {
+                'request': function (config) {
                     // only for those url that ends with '.html', those are partials.
                     if (config.method == 'GET' && !config.cache.get(config.url) && window.utils.string.endsWith(config.url, '.html')) {
                         var p = config.params;
@@ -19,11 +19,11 @@
                     return config;
                 }
             };
-        });
-        
+        }]);
+
         // use the service provide to configure the interceptor usage.
         $httpProvider.interceptors.push('defeatTheCacheInterceptor');
-        
+
     }]);
 
 (function (utils, undefined) {

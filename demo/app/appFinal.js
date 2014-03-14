@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('myAppFinal', ['myServices'])
+    angular.module('myAppFinal', ['myServices', 'myControls'])
         .controller('shell', ['$scope',
             'appVersion', 'userInfo',
             function ($scope, appVersion, userInfo) {

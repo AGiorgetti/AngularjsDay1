@@ -1,12 +1,12 @@
-﻿angular.module('myAppFinal')
+﻿angular.module('myControls', ['myServices'])
         .controller('todoListCtrl', ['$scope',
-            'dataContextFctry', 'dataContextSrvc', 'dataContext',
-            function ($scope, dataContextFctry, dataContextSrvc, dataContext) {
-                //var dataCtx = dataContextFctry;
-                //var dataCtx = dataContextSrvc;
-                var dataCtx = dataContext;
+            'dataContext', // dataContextFctry, dataContextSrvc dataContext
+            function ($scope, dataCtx) {
 
-                $scope.todoList = dataCtx.todoList;
+                $scope.dataCtx = {
+                    name: dataCtx.name,
+                    todoList: dataCtx.todoList
+                };
 
                 $scope.addnew = function (id, text) {
                     dataCtx.addTodo(id, text);
