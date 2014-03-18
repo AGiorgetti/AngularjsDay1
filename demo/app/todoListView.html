@@ -1,5 +1,8 @@
 ﻿<div data-ng-controller="todoListCtrl">
     <table>
+        <caption>
+            <h3>{{dataCtx.name}}</h3>
+        </caption>
         <thead>
             <tr>
                 <th>id</th>
@@ -7,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr data-ng-repeat="itm in todoList">
+            <tr data-ng-repeat="itm in dataCtx.todoList">
                 <td>{{itm.id}}</td>
                 <td>{{itm.text}}</td>
             </tr>

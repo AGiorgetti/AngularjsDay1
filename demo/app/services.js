@@ -1,5 +1,6 @@
 ﻿(function () {
     angular.module('myServices', [])
+
         // registers a value/object that can be accessed by providers and services
         .constant('appVersion', { ver: '0.0.1' })
 
@@ -21,6 +22,7 @@
             }
 
             return {
+                name: 'factory',
                 todoList: todoList,
                 addTodo: addTodo
             };
@@ -57,6 +59,7 @@
                 }
 
                 return {
+                    name: 'provider',
                     todoList: todoList,
                     addTodo: addTodo
                 };
@@ -73,11 +76,12 @@
             return null;
 
         // public methods ... or you can extend the protorype.
+        this.name = 'service';
+
         this.addTodo = function (id, text) {
             self.todoList.unshift({ id: id, text: text });
         };
 
         this.todoList = [{ id: 3, text: 'test 4' }, { id: 4, text: 'test 4' }];
     }
-
 })();

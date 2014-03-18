@@ -4,9 +4,9 @@
     // want to intercept it so that we can also log the errors
     // to the server for later analysis; let's use a decorator pattern
     angular.module('myAppFinal')
-        .config(['$provide', 'appVersion', function ($provide, appVersion) {
+        .config(['$provide', function ($provide) {
             // there's no helper method on the module to define a decorator.
-            $provide.decorator("$exceptionHandler", ['$delegate', function ($delegate) {
+            $provide.decorator("$exceptionHandler", ['$delegate', 'appVersion', function ($delegate, appVersion) {
                 return function (exception, cause) {
                     // original function call
                     $delegate(exception, cause);
